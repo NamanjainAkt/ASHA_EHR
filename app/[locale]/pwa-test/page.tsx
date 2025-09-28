@@ -24,8 +24,6 @@ export default function PWATestPage() {
   const [manifestData, setManifestData] = useState<any>(null);
 
   useEffect(() => {
-    checkPWAStatus();
-    
     const handleBeforeInstallPrompt = (e: Event) => {
       console.log('beforeinstallprompt fired in test page');
       e.preventDefault();
@@ -35,10 +33,13 @@ export default function PWATestPage() {
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     
+    // Initial check
+    checkPWAStatus();
+    
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const checkPWAStatus = async () => {
     try {
@@ -190,7 +191,7 @@ export default function PWATestPage() {
                 <AlertCircle className="w-5 h-5 text-blue-500 mt-0.5" />
                 <div className="text-sm">
                   <strong>iOS Instructions:</strong>
-                  <p>On iOS Safari, tap the Share button (↗️) at the bottom, then select "Add to Home Screen"</p>
+                  <p>On iOS Safari, tap the Share button (&#8599;) at the bottom, then select &quot;Add to Home Screen&quot;</p>
                 </div>
               </div>
             </div>
@@ -202,7 +203,7 @@ export default function PWATestPage() {
                 <Smartphone className="w-5 h-5 text-green-500 mt-0.5" />
                 <div className="text-sm">
                   <strong>Android Instructions:</strong>
-                  <p>In Chrome/Edge, tap the menu (⋮) and look for "Add to Home screen" or "Install app"</p>
+                  <p>In Chrome/Edge, tap the menu (&#8942;) and look for &quot;Add to Home screen&quot; or &quot;Install app&quot;</p>
                 </div>
               </div>
             </div>
