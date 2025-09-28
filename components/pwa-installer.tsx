@@ -8,8 +8,9 @@ export function PWAInstaller() {
     if (typeof window !== 'undefined') {
       // Register service worker
       if ('serviceWorker' in navigator) {
+        const swUrl = process.env.NODE_ENV === 'development' ? '/sw-dev.js' : '/sw.js';
         navigator.serviceWorker
-          .register('/sw.js')
+          .register(swUrl)
           .then((registration) => {
             console.log('SW registered: ', registration);
           })

@@ -13,12 +13,14 @@ export function InstallPWAButton() {
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
+      console.log('beforeinstallprompt event fired');
       e.preventDefault();
       setDeferredPrompt(e);
       setShowButton(true);
     };
 
     const handleAppInstalled = () => {
+      console.log('appinstalled event fired');
       setDeferredPrompt(null);
       setShowButton(false);
       toast.success('App installed successfully!');
@@ -31,12 +33,14 @@ export function InstallPWAButton() {
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
                         (window.navigator as any).standalone === true;
     
+    console.log('PWA Install Button - Is Standalone:', isStandalone);
+    
     if (!isStandalone) {
-      // Show button for mobile users even without beforeinstallprompt
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      if (isMobile) {
-        setTimeout(() => setShowButton(true), 3000);
-      }
+      // Always show button for potential PWA users
+      setTimeout(() => {
+        console.log('Showing install button after delay');
+        setShowButton(true);
+      }, 2000);
     }
 
     return () => {
@@ -46,25 +50,43 @@ export function InstallPWAButton() {
   }, []);
 
   const handleInstallClick = async () => {
+    console.log('Install button clicked, deferredPrompt:', !!deferredPrompt);
+    
     if (deferredPrompt) {
       deferredPrompt.prompt();
       const choiceResult = await deferredPrompt.userChoice;
+      console.log('User choice:', choiceResult.outcome);
       if (choiceResult.outcome === 'accepted') {
         toast.success('Installing ASHAConnect app...');
+      } else {
+        toast.info('Installation cancelled. You can install later from browser menu.');
       }
       setDeferredPrompt(null);
       setShowButton(false);
     } else {
-      // Fallback for browsers that don't support the install prompt
+      // Fallback instructions for different browsers/platforms
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
       const isAndroid = /Android/.test(navigator.userAgent);
+      const isChrome = /Chrome/.test(navigator.userAgent);
+      const isEdge = /Edg/.test(navigator.userAgent);
+      
+      console.log('Platform detection:', { isIOS, isAndroid, isChrome, isEdge });
       
       if (isIOS) {
-        toast.info('To install: Tap Share → Add to Home Screen', { duration: 5000 });
-      } else if (isAndroid) {
-        toast.info('To install: Tap Menu (⋮) → Add to Home Screen', { duration: 5000 });
+        toast.info('iOS: Tap Share button (↗️) → Add to Home Screen', { 
+          duration: 8000,
+          description: 'This will add ASHAConnect as an app icon on your home screen.'
+        });
+      } else if (isAndroid && (isChrome || isEdge)) {
+        toast.info('Android: Tap Menu (⋮) → Add to Home Screen or Install App', { 
+          duration: 8000,
+          description: 'Look for "Install app" or "Add to Home screen" option.'
+        });
       } else {
-        toast.info('To install: Look for "Install App" in your browser menu', { duration: 5000 });
+        toast.info('Install App: Check your browser menu for "Install" or "Add to Home Screen"', { 
+          duration: 8000,
+          description: 'The exact option depends on your browser.'
+        });
       }
     }
   };
