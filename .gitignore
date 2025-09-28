@@ -60,7 +60,6 @@ out
 /build
 build/
 dist/
-lib/
 build/Release
 
 # misc
