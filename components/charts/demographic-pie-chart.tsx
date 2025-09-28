@@ -5,22 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 export function DemographicPieChart() {
-  let t: any;
-  try {
-    t = useTranslations('Analytics');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'patientDemographics': 'Patient Demographics',
-        'patientDemographicsDesc': 'Distribution of patients by age group.',
-        'ageGroup0to5': '0-5 years',
-        'ageGroup6to18': '6-18 years',
-        'ageGroup19to45': '19-45 years',
-        'ageGroup45plus': '45+ years'
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('Analytics');
 
   const data = [
     { name: t('ageGroup0to5'), value: 8, color: '#9E7FFF' },

@@ -49,42 +49,8 @@ export function Header() {
   
   // Get locale from pathname or fallback to 'en'
   const locale = pathname.split('/')[1] || 'en';
-  
-  // Try to use translations, fallback to English if not available
-  let t: any, tSidebar: any;
-  try {
-    t = useTranslations('Header');
-    tSidebar = useTranslations('Sidebar');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'toggleNav': 'Toggle navigation menu',
-        'searchPlaceholder': 'Search patients...',
-        'toggleOffline': 'Toggle Offline Mode',
-        'changeLanguage': 'Change Language',
-        'language': 'Language',
-        'english': 'English',
-        'hindi': 'हिन्दी',
-        'userMenu': 'Toggle user menu',
-        'myAccount': 'My Account',
-        'settings': 'Settings',
-        'support': 'Support',
-        'logout': 'Logout'
-      };
-      return fallbacks[key] || key;
-    };
-    tSidebar = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'appName': 'ASHAConnect',
-        'dashboard': 'Dashboard',
-        'analytics': 'Analytics',
-        'patients': 'Patients',
-        'ancMonitoring': 'ANC Monitoring',
-        'voiceEntry': 'Voice Entry'
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('Header');
+  const tSidebar = useTranslations('Sidebar');
 
   const handleLanguageChange = (newLocale: string) => {
     // Navigate to the same path with new locale

@@ -7,24 +7,7 @@ import { AncLineChart } from '@/components/charts/anc-line-chart';
 import { Baby, AlertTriangle, HeartHandshake } from 'lucide-react';
 
 export default function AncMonitoringPage() {
-  let t: any;
-  try {
-    t = useTranslations('ANC');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'title': 'ANC Monitoring',
-        'description': 'Track and manage antenatal care for expectant mothers.',
-        'totalAncCases': 'Total ANC Cases',
-        'fromLastMonth': '+3 from last month',
-        'highRiskPregnancies': 'High-Risk Pregnancies',
-        'requiresAttention': 'Requires immediate attention',
-        'successfulDeliveries': 'Successful Deliveries',
-        'thisQuarter': 'This quarter'
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('ANC');
 
   return (
     <>

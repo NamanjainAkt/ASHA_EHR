@@ -38,32 +38,7 @@ export function AddPatientDialog({ onPatientAdded }: AddPatientDialogProps) {
     contact: '',
     bloodGroup: '',
   });
-  
-  let t: any;
-
-  try {
-    t = useTranslations('AddPatient');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'title': 'Add New Patient',
-        'description': 'Enter patient information to add them to your records.',
-        'name': 'Name',
-        'age': 'Age',
-        'gender': 'Gender',
-        'village': 'Village',
-        'contact': 'Contact Number',
-        'bloodGroup': 'Blood Group',
-        'male': 'Male',
-        'female': 'Female',
-        'other': 'Other',
-        'cancel': 'Cancel',
-        'addPatient': 'Add Patient',
-        'patientAdded': 'Patient added successfully!',
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('AddPatient');
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));

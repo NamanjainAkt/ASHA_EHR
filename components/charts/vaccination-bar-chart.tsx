@@ -12,18 +12,7 @@ const data = [
 ];
 
 export function VaccinationBarChart() {
-  let t: any;
-  try {
-    t = useTranslations('Analytics');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'vaccinationStatus': 'Vaccination Status',
-        'vaccinationStatusDesc': 'Overview of due vs. completed vaccinations.'
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('Analytics');
 
   return (
     <Card>

@@ -24,17 +24,7 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const locale = pathname.split('/')[1] || 'en';
-  
-  // Try to use translations, fallback to English if not available
-  let t: any;
-  try {
-    t = useTranslations('Sidebar');
-  } catch (error) {
-    t = (key: string) => {
-      const item = navItems.find(item => item.labelKey === key);
-      return item?.fallback || key;
-    };
-  }
+  const t = useTranslations('Sidebar');
   
   const getAppName = () => {
     try {
@@ -50,7 +40,7 @@ export function Sidebar() {
         <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           <Link href={`/${locale}`} className="flex items-center gap-2 font-semibold">
             <HeartHandshake className="h-6 w-6 text-primary" />
-            <span className="">{getAppName()}</span>
+            <span className="">{t('appName')}</span>
           </Link>
         </div>
         <div className="flex-1">
@@ -58,14 +48,6 @@ export function Sidebar() {
             {navItems.map((item) => {
               const itemPath = `/${locale}${item.href === '/' ? '' : item.href}`;
               const isActive = item.href === '/' ? pathname === `/${locale}` : pathname.startsWith(itemPath);
-              
-              const getLabel = () => {
-                try {
-                  return t(item.labelKey as any);
-                } catch {
-                  return item.fallback;
-                }
-              };
               
               return (
                 <Link
@@ -77,7 +59,7 @@ export function Sidebar() {
                   )}
                 >
                   <item.icon className="h-4 w-4" />
-                  {getLabel()}
+                  {t(item.labelKey as any)}
                 </Link>
               );
             })}

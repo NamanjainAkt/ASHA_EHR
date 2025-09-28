@@ -20,27 +20,7 @@ export default function VoiceEntryPage() {
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [history, setHistory] = useState<string[]>([]);
-
-  let t: any;
-  try {
-    t = useTranslations('VoiceEntry');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'title': 'Voice Data Entry',
-        'description': 'Simulated voice interface for hands-free data input.',
-        'recordingInterface': 'Recording Interface',
-        'recordingInterfaceDesc': 'Click the microphone to start/stop recording simulation.',
-        'recording': 'Recording...',
-        'tapToStart': 'Tap to start recording',
-        'commandHistory': 'Command History',
-        'commandHistoryDesc': 'Recently simulated voice commands.',
-        'processed': 'Processed',
-        'noCommands': 'No commands recorded yet.'
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('VoiceEntry');
 
   const handleRecord = () => {
     if (isRecording) {

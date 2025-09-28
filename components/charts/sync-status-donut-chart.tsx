@@ -5,20 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 export function SyncStatusDonutChart() {
-  let t: any;
-  try {
-    t = useTranslations('Analytics');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'dataSyncStatus': 'Data Sync Status',
-        'dataSyncStatusDesc': 'Patient records synced with the central server.',
-        'synced': 'Synced',
-        'pending': 'Pending'
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('Analytics');
 
   const data = [
     { name: t('synced'), value: 45, color: '#10b981' },

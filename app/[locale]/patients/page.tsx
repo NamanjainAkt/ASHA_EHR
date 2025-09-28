@@ -13,22 +13,7 @@ import { toast } from 'sonner';
 
 export default function PatientsPage() {
   const [patients, setPatients] = useState(initialPatients);
-  
-  let t: any;
-  try {
-    t = useTranslations('Patients');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'title': 'Patient Management',
-        'description': 'Manage all patient records in one place.',
-        'export': 'Export',
-        'addPatient': 'Add Patient',
-        'exportSuccess': 'Patient data exported successfully!'
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('Patients');
 
   const handlePatientAdded = (newPatient: any) => {
     setPatients(prev => [newPatient, ...prev]);

@@ -11,23 +11,7 @@ import { VillageComparisonChart } from '@/components/charts/village-comparison-c
 import { SyncStatusDonutChart } from '@/components/charts/sync-status-donut-chart';
 
 export default function AnalyticsPage() {
-  let t: any;
-  try {
-    t = useTranslations('Analytics');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'title': 'Analytics Dashboard',
-        'description': 'In-depth analysis of community health metrics.',
-        'overview': 'Overview',
-        'vaccinations': 'Vaccinations',
-        'anc': 'ANC',
-        'diseasetrends': 'Disease Trends',
-        'villages': 'Villages'
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('Analytics');
 
   return (
     <>

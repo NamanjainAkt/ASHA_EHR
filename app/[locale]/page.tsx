@@ -28,36 +28,7 @@ import { AddPatientDialog } from '@/components/patients/add-patient-dialog';
 import { toast } from 'sonner';
 
 export default function Dashboard() {
-  // Try to use translations, fallback to English if not available
-  let t: any;
-  try {
-    t = useTranslations('Dashboard');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'title': 'Dashboard',
-        'description': 'Welcome back, ASHA Worker!',
-        'addPatient': 'Add Patient',
-        'syncNow': 'Sync Now',
-        'totalPatients': 'Total Patients',
-        'totalPatientsDesc': '+2 since last month',
-        'villagesCovered': 'Villages Covered',
-        'villagesCoveredDesc': 'Serving communities effectively',
-        'ancRegistrations': 'ANC Registrations',
-        'ancRegistrationsDesc': 'This month',
-        'vaccinationsDue': 'Vaccinations Due',
-        'vaccinationsDueDesc': 'In the next 7 days',
-        'recentActivity': 'Recent Activity',
-        'recentActivityDesc': 'Latest patient visits and important updates in your area.',
-        'recentPatients': 'Recent Patients',
-        'recentPatientsDesc': 'Patients who had visits in the last 7 days.',
-        'patient': 'Patient',
-        'visitDate': 'Visit Date',
-        'syncSuccess': 'Data synchronized successfully!'
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('Dashboard');
 
   const handleSyncNow = () => {
     // Simulate sync operation

@@ -49,30 +49,7 @@ export function DataTable<TData, TValue>({
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = React.useState({});
-
-  let t: any;
-  try {
-    t = useTranslations('Patients');
-  } catch (error) {
-    t = (key: string) => {
-      const fallbacks: { [key: string]: string } = {
-        'filterByName': 'Filter by name...',
-        'noResults': 'No results.',
-        'previous': 'Previous',
-        'next': 'Next',
-        'selected': 'selected',
-        'of': 'of',
-        'rows': 'row(s)',
-        'actions': 'Actions',
-        'copyPatientId': 'Copy patient ID',
-        'viewProfile': 'View profile',
-        'editDetails': 'Edit details',
-        'active': 'Active',
-        'inactive': 'Inactive'
-      };
-      return fallbacks[key] || key;
-    };
-  }
+  const t = useTranslations('Patients');
 
   const table = useReactTable({
     data,
