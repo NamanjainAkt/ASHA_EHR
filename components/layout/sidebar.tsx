@@ -10,15 +10,19 @@ import {
   Users,
   Baby,
   Mic,
+  FileText,
+  Heart,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/', icon: LayoutDashboard, labelKey: 'dashboard', fallback: 'Dashboard' },
+  { href: '/health-score', icon: Heart, labelKey: 'healthScore', fallback: 'Health Score' },
   { href: '/analytics', icon: BarChart3, labelKey: 'analytics', fallback: 'Analytics' },
   { href: '/patients', icon: Users, labelKey: 'patients', fallback: 'Patients' },
   { href: '/anc', icon: Baby, labelKey: 'ancMonitoring', fallback: 'ANC Monitoring' },
   { href: '/voice-entry', icon: Mic, labelKey: 'voiceEntry', fallback: 'Voice Entry' },
+  { href: '/text-entry', icon: FileText, labelKey: 'textEntry', fallback: 'Text Entry' },
 ];
 
 export function Sidebar() {

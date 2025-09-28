@@ -5,9 +5,11 @@ import { useTranslations } from 'next-intl';
 import { PageHeader } from '@/components/layout/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Mic, MicOff, Play, Square, Trash2 } from 'lucide-react';
+import { Mic, MicOff, Play, Square, Trash2, Brain } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { AIVoiceToText } from '@/components/voice/ai-voice-to-text';
 
 const commands = [
   "Register new patient Sunita Devi, age 32, village Rampur.",

@@ -26,6 +26,23 @@
     --radius: 0.75rem;
     --warning: 38 92% 50%; /* Amber */
     --error: 0 72% 51%; /* Red */
+    
+    /* Extended Healthcare Color Palette */
+    --health-blue: 194 85% 55%; /* Medical Blue */
+    --health-teal: 180 75% 45%; /* Healing Teal */
+    --health-purple: 270 70% 60%; /* Care Purple */
+    --health-orange: 25 95% 53%; /* Vitamin Orange */
+    --health-pink: 340 75% 60%; /* Wellness Pink */
+    --health-lime: 85 80% 50%; /* Growth Lime */
+    --health-indigo: 240 65% 58%; /* Professional Indigo */
+    --health-emerald: 160 85% 40%; /* Life Emerald */
+    --success: 142 76% 36%; /* Success Green */
+    --info: 204 94% 60%; /* Info Blue */
+    --chart-1: 221 83% 53%;
+    --chart-2: 150 70% 40%;
+    --chart-3: 262 83% 60%;
+    --chart-4: 194 85% 55%;
+    --chart-5: 25 95% 53%;
   }
 
   .dark {
@@ -50,6 +67,23 @@
     --ring: 217 91% 60%;
     --warning: 48 96% 50%;
     --error: 0 72% 51%;
+    
+    /* Extended Healthcare Color Palette - Dark Mode */
+    --health-blue: 194 85% 45%;
+    --health-teal: 180 75% 35%;
+    --health-purple: 270 70% 50%;
+    --health-orange: 25 95% 43%;
+    --health-pink: 340 75% 50%;
+    --health-lime: 85 80% 40%;
+    --health-indigo: 240 65% 48%;
+    --health-emerald: 160 85% 30%;
+    --success: 142 76% 26%;
+    --info: 204 94% 50%;
+    --chart-1: 217 91% 60%;
+    --chart-2: 150 70% 40%;
+    --chart-3: 262 83% 60%;
+    --chart-4: 194 85% 45%;
+    --chart-5: 25 95% 43%;
   }
 }
 

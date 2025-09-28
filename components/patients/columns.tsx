@@ -88,7 +88,11 @@ export const columns: ColumnDef<Patient>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
+            <Button 
+              variant="ghost" 
+              className="h-8 w-8 p-0"
+              onClick={(e) => e.stopPropagation()}
+            >
               <span className="sr-only">Open menu</span>
               <MoreHorizontal className="h-4 w-4" />
             </Button>
@@ -96,7 +100,10 @@ export const columns: ColumnDef<Patient>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(patient.id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                navigator.clipboard.writeText(patient.id);
+              }}
             >
               Copy patient ID
             </DropdownMenuItem>

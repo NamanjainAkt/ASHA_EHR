@@ -13,6 +13,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useTranslations } from 'next-intl';
+import { useAppStore } from '@/store/use-app-store';
 
 import {
   Table,
@@ -36,6 +37,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal, Phone, MapPin, Calendar } from "lucide-react";
 import { Patient } from "@/lib/types";
+import { PatientProfileModal } from "@/components/patients/patient-profile-modal";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -50,6 +52,7 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = React.useState({});
   const t = useTranslations('Patients');
+  const { openPatientProfileModal } = useAppStore();
 
   const table = useReactTable({
     data,
@@ -74,13 +77,24 @@ export function DataTable<TData, TValue>({
       return new Intl.DateTimeFormat('en-IN').format(new Date(dateString));
     };
 
+    const handleCardClick = () => {
+      openPatientProfileModal(patient);
+    };
+
+    const handleMenuClick = (e: React.MouseEvent) => {
+      e.stopPropagation(); // Prevent card click when clicking menu
+    };
+
     return (
-      <Card className="mb-4">
+      <Card 
+        className="mb-4 cursor-pointer hover:shadow-lg transition-all duration-200 hover:border-health-blue/30 hover:bg-health-blue/5" 
+        onClick={handleCardClick}
+      >
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div>
-                <h3 className="font-semibold text-lg">{patient.name}</h3>
+                <h3 className="font-semibold text-lg hover:text-health-indigo transition-colors">{patient.name}</h3>
                 <div className="flex items-center text-sm text-muted-foreground mt-1">
                   <MapPin className="h-3 w-3 mr-1" />
                   {patient.village}
@@ -94,25 +108,30 @@ export function DataTable<TData, TValue>({
               >
                 {t(patient.status.toLowerCase())}
               </Badge>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="h-8 w-8 p-0">
-                    <span className="sr-only">{t('actions')}</span>
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>{t('actions')}</DropdownMenuLabel>
-                  <DropdownMenuItem
-                    onClick={() => navigator.clipboard.writeText(patient.id)}
-                  >
-                    {t('copyPatientId')}
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>{t('viewProfile')}</DropdownMenuItem>
-                  <DropdownMenuItem>{t('editDetails')}</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div onClick={handleMenuClick}>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="h-8 w-8 p-0 hover:bg-health-teal/10">
+                      <span className="sr-only">{t('actions')}</span>
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>{t('actions')}</DropdownMenuLabel>
+                    <DropdownMenuItem
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigator.clipboard.writeText(patient.id);
+                      }}
+                    >
+                      {t('copyPatientId')}
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => openPatientProfileModal(patient)}>{t('viewProfile')}</DropdownMenuItem>
+                    <DropdownMenuItem>{t('editDetails')}</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
           </div>
         </CardHeader>
@@ -144,6 +163,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
+      <PatientProfileModal />
       <div className="flex items-center">
         <Input
           placeholder={t('filterByName')}
@@ -200,6 +220,8 @@ export function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
+                    className="cursor-pointer hover:bg-health-blue/5 transition-colors"
+                    onClick={() => openPatientProfileModal(row.original as Patient)}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

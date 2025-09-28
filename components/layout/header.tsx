@@ -13,6 +13,8 @@ import {
   Languages,
   HeartHandshake,
   LayoutDashboard,
+  FileText,
+  Heart,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useLocale } from 'next-intl';
@@ -33,17 +35,28 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { SettingsModal } from '@/components/modals/settings-modal';
+import { SupportModal } from '@/components/modals/support-modal';
 
 const mobileNavItems = [
   { href: '/', icon: LayoutDashboard, labelKey: 'dashboard', fallback: 'Dashboard' },
+  { href: '/health-score', icon: Heart, labelKey: 'healthScore', fallback: 'Health Score' },
   { href: '/analytics', icon: BarChart3, labelKey: 'analytics', fallback: 'Analytics' },
   { href: '/patients', icon: Users, labelKey: 'patients', fallback: 'Patients' },
   { href: '/anc', icon: Baby, labelKey: 'ancMonitoring', fallback: 'ANC Monitoring' },
   { href: '/voice-entry', icon: Mic, labelKey: 'voiceEntry', fallback: 'Voice Entry' },
+  { href: '/text-entry', icon: FileText, labelKey: 'textEntry', fallback: 'Text Entry' },
 ];
 
 export function Header() {
-  const { isOffline, toggleOffline } = useAppStore();
+  const { 
+    isOffline, 
+    toggleOffline, 
+    isMobileSidebarOpen, 
+    setMobileSidebarOpen,
+    setShowSettingsModal,
+    setShowSupportModal
+  } = useAppStore();
   const pathname = usePathname();
   const router = useRouter();
   
@@ -63,9 +76,16 @@ export function Header() {
     router.replace('/' + segments.join('/'));
   };
 
+  const handleMobileNavClick = () => {
+    setMobileSidebarOpen(false);
+  };
+
   return (
-    <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-      <Sheet>
+    <>
+      <SettingsModal />
+      <SupportModal />
+      <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+      <Sheet open={isMobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
             <Menu className="h-5 w-5" />
@@ -77,6 +97,7 @@ export function Header() {
             <Link
               href={`/${locale}`}
               className="flex items-center gap-2 text-lg font-semibold mb-4"
+              onClick={handleMobileNavClick}
             >
               <HeartHandshake className="h-6 w-6 text-primary" />
               <span className="">{tSidebar('appName')}</span>
@@ -85,7 +106,8 @@ export function Header() {
               <Link
                 key={item.href}
                 href={`/${locale}${item.href}`}
-                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground transition-colors hover:bg-health-blue/10"
+                onClick={handleMobileNavClick}
               >
                 <item.icon className="h-5 w-5" />
                 {tSidebar(item.labelKey as any)}
@@ -112,7 +134,7 @@ export function Header() {
       </Button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="icon" className="hidden sm:inline-flex">
+          <Button variant="outline" size="icon" className="inline-flex">
             <Languages className="h-5 w-5" />
             <span className="sr-only">{t('changeLanguage')}</span>
           </Button>
@@ -135,12 +157,17 @@ export function Header() {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>{t('settings')}</DropdownMenuItem>
-          <DropdownMenuItem>{t('support')}</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setShowSettingsModal(true)}>
+            {t('settings')}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setShowSupportModal(true)}>
+            {t('support')}
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>{t('logout')}</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>
+  </>
   );
 }

@@ -3,6 +3,7 @@
 import { Users, HeartPulse, Baby, ShieldCheck } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { useAppStore } from '@/store/use-app-store';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -25,14 +26,16 @@ import { VaccinationBarChart } from '@/components/charts/vaccination-bar-chart';
 import { SyncStatusDonutChart } from '@/components/charts/sync-status-donut-chart';
 import { PageHeader } from '@/components/layout/page-header';
 import { AddPatientDialog } from '@/components/patients/add-patient-dialog';
+import { SyncModal } from '@/components/modals/sync-modal';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 export default function Dashboard() {
   const t = useTranslations('Dashboard');
+  const { setShowSyncModal } = useAppStore();
 
   const handleSyncNow = () => {
-    // Simulate sync operation
-    toast.success(t('syncSuccess'));
+    setShowSyncModal(true);
   };
 
   const handlePatientAdded = (patient: any) => {
@@ -42,6 +45,7 @@ export default function Dashboard() {
 
   return (
     <>
+      <SyncModal />
       <PageHeader title={t('title')} description={t('description')}>
         <AddPatientDialog onPatientAdded={handlePatientAdded} />
         <Button variant="secondary" onClick={handleSyncNow}>{t('syncNow')}</Button>
