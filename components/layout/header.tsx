@@ -37,6 +37,7 @@ import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { SettingsModal } from '@/components/modals/settings-modal';
 import { SupportModal } from '@/components/modals/support-modal';
+import { InstallPWAButton } from '@/components/install-pwa-button';
 
 const mobileNavItems = [
   { href: '/', icon: LayoutDashboard, labelKey: 'dashboard', fallback: 'Dashboard' },
@@ -132,6 +133,7 @@ export function Header() {
         {isOffline ? <WifiOff className="h-5 w-5 text-destructive" /> : <Wifi className="h-5 w-5 text-green-500" />}
         <span className="sr-only">{t('toggleOffline')}</span>
       </Button>
+      <InstallPWAButton />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon" className="inline-flex">
