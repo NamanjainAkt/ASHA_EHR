@@ -48,6 +48,7 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <PWAInstaller />
           <OfflineIndicator />
+          <script src="/pwa-diagnostics.js"></script>
           <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
             <div className="hidden border-r bg-muted/40 md:block">
               <Sidebar />
