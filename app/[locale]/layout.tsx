@@ -6,6 +6,9 @@ import { Sidebar } from '@/components/layout/sidebar';
 import { Header } from '@/components/layout/header';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { PWAInstaller } from '@/components/pwa-installer';
+import { Toaster } from '@/components/ui/sonner';
+import { OfflineIndicator } from '@/components/offline-indicator';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -43,6 +46,8 @@ export default async function RootLayout({
         )}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <PWAInstaller />
+          <OfflineIndicator />
           <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
             <div className="hidden border-r bg-muted/40 md:block">
               <Sidebar />
@@ -54,6 +59,7 @@ export default async function RootLayout({
               </main>
             </div>
           </div>
+          <Toaster />
         </NextIntlClientProvider>
       </body>
     </html>
