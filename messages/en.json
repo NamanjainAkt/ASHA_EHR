@@ -96,7 +96,15 @@
     "dataSyncStatus": "Data Sync Status",
     "dataSyncStatusDesc": "Patient records synced with the central server.",
     "synced": "Synced",
-    "pending": "Pending"
+    "pending": "Pending",
+    "monthlyAncRegistrations": "Monthly ANC Registrations",
+    "registrations": "Registrations",
+    "commonSymptomsOverTime": "Common Symptoms Over Time",
+    "fever": "Fever",
+    "cough": "Cough",
+    "diarrhea": "Diarrhea",
+    "villageHealthPerformance": "Village Health Performance",
+    "healthScore": "Health Score"
   },
   "ANC": {
     "title": "ANC Monitoring",

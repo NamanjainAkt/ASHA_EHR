@@ -3,13 +3,15 @@
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { analyticsData } from '@/lib/data';
+import { useTranslations } from 'next-intl';
 
 export function VillageComparisonChart() {
+  const t = useTranslations('Analytics');
   const data = analyticsData.villagePerformance;
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Village Health Performance</CardTitle>
+        <CardTitle>{t('villageHealthPerformance')}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-[300px] w-full">
@@ -19,7 +21,7 @@ export function VillageComparisonChart() {
               <XAxis type="number" />
               <YAxis dataKey="name" type="category" width={80} />
               <Tooltip />
-              <Bar dataKey="healthScore" fill="#2563EB" name="Health Score" />
+              <Bar dataKey="healthScore" fill="#2563EB" name={t('healthScore')} />
             </BarChart>
           </ResponsiveContainer>
         </div>

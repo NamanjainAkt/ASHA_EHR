@@ -94,7 +94,15 @@
     "dataSyncStatus": "डेटा सिंक स्थिति",
     "dataSyncStatusDesc": "केंद्रीय सर्वर के साथ सिंक किए गए रोगी रिकॉर्ड।",
     "synced": "सिंक किया गया",
-    "pending": "लंबित"
+    "pending": "लंबित",
+    "monthlyAncRegistrations": "मासिक एएनसी पंजीकरण",
+    "registrations": "पंजीकरण",
+    "commonSymptomsOverTime": "समय के साथ सामान्य लक्षण",
+    "fever": "बुखार",
+    "cough": "खांसी",
+    "diarrhea": "दस्त",
+    "villageHealthPerformance": "गांव का स्वास्थ्य प्रदर्शन",
+    "healthScore": "स्वास्थ्य स्कोर"
   },
   "ANC": {
     "title": "एएनसी निगरानी",
